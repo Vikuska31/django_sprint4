@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        exclude = ('author', 'created_at')
+        fields = ('title', 'text', 'pub_date', 'location', 'category', 'image')
         widgets = {
             'pub_date': forms.DateTimeInput(
                 attrs={'type': 'datetime-local'},
@@ -19,9 +19,9 @@ class PostForm(forms.ModelForm):
             ),
         }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.fields['pub_date'].input_formats = ('%Y-%m-%dT%H:%M',)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['pub_date'].input_formats = ('%Y-%m-%dT%H:%M',)
 
 
 class CommentForm(forms.ModelForm):
